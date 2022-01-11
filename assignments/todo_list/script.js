@@ -1,21 +1,55 @@
-var input=document.getElementsByTagName("input")[0] ;
-var submit1=document.getElementsByTagName("button")[0];
-var todo=document.getElementsByClassName("todos")[0];
-var count=0;
-submit1.onclick=function() {
-    if (input.value===""){
-        alert("please enter the content")
-    }else{
-        var para=document.createElement('p');
-        var attr=document.createAttribute("key");
-        attr.value=count;
-        para.setAttributeNode(attr);
-        para.innerHTML=input.value;
-        todo.appendChild(para);
-        input.value="";
-        para.onclick=function(){
-            todo.removeChild(para);
+const api_url="https://jsonplaceholder.typicode.com/todos";
+var pend=document.getElementsByTagName("button")[0];
+var fin=document.getElementsByTagName("button")[1];
+var to=document.getElementsByClassName("todos")[0];
+async function todo(){
+    const response=await fetch(api_url);
+    const data=await response.json();
+    const pending=[];
+    var finish=[];
+    for(let i=0;i<200;i++){
+        if(data[i].completed===true){
+            // console.log(data[i].title)
+            finish.push(data[i].title);
+        }else{
+            // console.log(data[i].title)
+            pending.push(data[i].title);
         }
-        count+=1;
     }
-}
+    pend.onclick=function(){
+        // console.log("satheesh naayajaa kaka");
+        // document.getElementsByClassName("secondul").style.display="None";
+        var para=document.createElement("ul");
+        para.setAttribute("class","firstul");
+        for(let i=0;i<pending.length;i++){
+            let li=document.createElement("li");
+            li.innerText=pending[i];
+            li.style.listStyleType="None";
+            li.style.color="red";
+            li.style.padding="5px";
+            para.appendChild(li);
+        }
+        to.appendChild(para);
+    }
+    
+    fin.onclick=function(){
+        // console.log("satheesh naayajaa kaka");
+        // document.getElementsByClassName("firstul").style.display="None";
+        var para=document.createElement("ul");
+        para.setAttribute("class","secondul");
+        for(let i=0;i<finish.length;i++){
+            let li=document.createElement("li");
+            li.innerText=finish[i];
+            li.style.listStyleType="None";
+            li.style.color="green";
+            li.style.padding="5px";
+            para.appendChild(li);
+        }
+        to.appendChild(para);
+    }
+    
+    }
+
+todo();
+
+

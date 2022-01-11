@@ -1,0 +1,14 @@
+p{
+    text-align: center;
+}
+ul{
+    display: inline-block;
+}
+button{
+    margin-top: 50px;
+    border: lightblue;
+    padding: 25px;
+}
+.todos{
+    display: inline-block;
+}
